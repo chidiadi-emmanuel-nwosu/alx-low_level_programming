@@ -12,9 +12,7 @@
  */
 int main(void)
 {
-	char str[] = "and that piece of art is useful\" - Dora Korpar, 2015-10-19";
-	fwrite(str, 1, sizeof(str), stderr);
-	fwrite("\n", 1, sizeof(char), stderr);
+	fwrite("and that piece of art is useful\" - Dora Korpar, 2015-10-19\n", 1, 59, stderr);\
 
 	return (1);
 }
