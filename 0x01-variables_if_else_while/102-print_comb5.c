@@ -28,7 +28,7 @@ while (a < 58)
 
 			while (d < 58)
 			{
-				if (!(b >= d || a > c))
+				if ((a <= c && b <= d) && !(a == c && b == d))
 				{
 					putchar(a);
 					putchar(b);
