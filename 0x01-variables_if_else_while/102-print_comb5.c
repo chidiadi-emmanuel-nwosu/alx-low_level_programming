@@ -18,7 +18,7 @@ while (a <= 9)
 {
 	int b = 0;
 
-	while (b <= 9)
+	for (; b <= 9; b++)
 	{
 		int c = 0;
 
@@ -30,6 +30,7 @@ while (a <= 9)
 			{
 				int num1 = a * 10 + b % 10;
 				int num2 = c * 10 + d % 10;
+
 				if (num1 < num2)
 				{
 					putchar(a + '0');
@@ -46,11 +47,9 @@ while (a <= 9)
 			}
 			c++;
 		}
-		b++;
 	}
 	a++;
 }
 putchar('\n');
-
 return (0);
 }
