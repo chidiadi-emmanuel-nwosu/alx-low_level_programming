@@ -12,30 +12,32 @@
  */
 int main(void)
 {
-int a = 48;
+int a = 0;
 
-while (a < 58)
+while (a <= 9)
 {
-	int b = 48;
+	int b = 0;
 
-	while (b < 58)
+	while (b <= 9)
 	{
-		int c = 48;
+		int c = 0;
 
-		while (c < 58)
+		while (c <= 9)
 		{
-			int d = 48;
+			int d = 0;
 
-			while (d < 58)
+			while (d <= 9)
 			{
-				if ((a <= c && b <= d) && !(a == c && b == d))
+				int num1 = a * 10 + b % 10;
+				int num2 = c * 10 + d % 10;
+				if (num1 < num2)
 				{
-					putchar(a);
-					putchar(b);
+					putchar(a + '0');
+					putchar(b + '0');
 					putchar(' ');
-					putchar(c);
-					putchar(d);
-					if (a == 57 && b == 56 && c == 57 && d == 57)
+					putchar(c + '0');
+					putchar(d + '0');
+					if (a == 9 && b == 8 && c == 9 && d == 9)
 						break;
 					putchar(',');
 					putchar(' ');
