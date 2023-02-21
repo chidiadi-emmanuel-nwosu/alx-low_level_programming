@@ -12,8 +12,8 @@
  */
 int main(void)
 {
-	long m = 1;
-	long n = 2;
+	unsigned long m = 1;
+	unsigned long n = 2;
 	int i = 1;
 
 	while (i <= 98)
@@ -28,7 +28,7 @@ int main(void)
 		}
 		else
 		{
-			long fib = m + n;
+			unsigned long fib = m + n;
 
 			m = n;
 			n = fib;
