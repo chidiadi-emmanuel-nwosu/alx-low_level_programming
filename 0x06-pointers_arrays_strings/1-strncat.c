@@ -6,7 +6,7 @@
 #include "main.h"
 #include <stdio.h>
 /**
- * _strcat - concatenates two strings
+ * _strncat - concatenates two strings
  * @dest: destination string
  * @src: source string
  * @n: bytes from src
