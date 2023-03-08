@@ -38,7 +38,7 @@ int find_prime(int n, int i)
 
 	if (n % ch1 == 0 || n % ch2 == 0)
 		return (0);
-	if ((ch1 * ch1) > n )
+	if ((ch1 * ch1) > n)
 		return (1);
 	return (find_prime(n, i + 1));
 }
