@@ -1,4 +1,4 @@
-/**
+/*
  * File: 1-args.c
  * Author: Chidiadi E. Nwosu
  */
@@ -7,6 +7,8 @@
 
 /**
  * main - prints the number of arguments passed into it
+ * @argc: number of command line arguments
+ * @argv: array of command line arguments
  *
  * Return: 0
  */

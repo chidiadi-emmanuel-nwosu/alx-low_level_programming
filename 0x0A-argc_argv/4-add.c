@@ -1,4 +1,4 @@
-/**
+/*
  * File: 4-add.c
  * Author: Chidiadi E. Nwosu
  */
@@ -41,5 +41,5 @@ int main(int argc, char **argv)
 	}
 
 	printf("%i\n", sum);
-	return (1);	
+	return (1);
 }

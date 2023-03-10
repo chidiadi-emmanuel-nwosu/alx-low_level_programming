@@ -1,4 +1,4 @@
-/**
+/*
  * File: 3-mul.c
  * Author: Chidiadi E. Nwosu
  */
@@ -23,5 +23,5 @@ int main(int argc, char **argv)
 		return (0);
 	}
 	printf("Error\n");
-	return (1);	
+	return (1);
 }

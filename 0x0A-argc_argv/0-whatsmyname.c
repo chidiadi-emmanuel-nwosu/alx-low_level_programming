@@ -1,4 +1,4 @@
-/**
+/*
  * File: 0-whatsmyname.c
  * Author: Chidiadi E. Nwosu
  */
@@ -7,6 +7,8 @@
 
 /**
  * main - prints its name
+ * @argc: number of command line argument
+ * @argv: array of command line arguments
  *
  * Return: 0
  */
