@@ -15,7 +15,7 @@
 int main(int argc, char **argv)
 {
 	if (argc < 1)
-		print("%s", argv[0]);
+		printf("%s", argv[0]);
 	printf("%i\n", argc - 1);
 	return (0);
 }
