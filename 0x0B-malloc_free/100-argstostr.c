@@ -33,22 +33,17 @@ int _strlen(char *str)
 char *argstostr(int ac, char **av)
 {
 	char *ptr;
-	int i, j;
-	int k = 0;
-	int len = 0;
+	int i, j, k = 0, len = 0;
 
 	if (ac == 0 || av == NULL)
 		return (NULL);
 	for (i = 0; i < ac; i++)
 		len += _strlen(av[i]);
 
-	printf("len: %i\n", len);
 	ptr = (char *)malloc(sizeof(char) * len + 1);
 
 	if (ptr == NULL)
 		return (NULL);
-
-	printf("size of ptr: %i\n", _strlen(ptr));
 
 	for (i = 0; i < ac; i++)
 	{
