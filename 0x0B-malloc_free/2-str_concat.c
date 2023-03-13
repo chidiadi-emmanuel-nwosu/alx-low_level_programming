@@ -16,7 +16,7 @@ int _strlen(char *str)
 {
 	int i = 0;
 
-	while(*(str + i))
+	while (*(str + i))
 		i++;
 	return (i);
 }
@@ -31,15 +31,21 @@ int _strlen(char *str)
  */
 char *str_concat(char *s1, char *s2)
 {
-	int i;
-	int j = 0;
-	int k = 0;
-	int l = _strlen(s1) + _strlen(s2);
+	int i, j = 0, k = 0, l;
 	char *ptr;
 
-	ptr = (char *)malloc(l + 1);
-	if (ptr == 0)
-		return (0);
+	if (s1 == NULL && s2 == NULL)
+		l = 0;
+	else if (s1 == NULL)
+		l = _strlen(s2);
+	else if (s2 == NULL)
+		l = _strlen(s1);
+	else
+		l = _strlen(s1) + _strlen(s2);
+
+	ptr = (char *)malloc(sizeof(char) * l + 1);
+	if (ptr == NULL)
+		return (NULL);
 
 	for (i = 0; i < l; i++)
 	{
