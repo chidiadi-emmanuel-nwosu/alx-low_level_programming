@@ -16,7 +16,7 @@ int _strlen(char *str)
 {
 	int i = 0;
 
-	while(*(str + i))
+	while (*(str + i))
 		i++;
 	return (i + 1);
 }
@@ -24,7 +24,7 @@ int _strlen(char *str)
 
 
 /**
- * atgstostr - concatenates all the arguments of your program
+ * argstostr - concatenates all the arguments of your program
  * @ac: number of arguments
  * @av: array of arguments
  *
