@@ -16,18 +16,26 @@
  */
 char *_strdup(char *str)
 {
-	int i = 0;
-	int j;
-	char *ptr;
+	if (str == NULL)
+	{
+		return (NULL);
+	}
+	else
+	{
+		int i = 0, j;
+		char *ptr;
 
-	while(*(str + i))
-		i++;
+		while (*(str + i))
+			i++;
 
-	ptr = (char *)malloc(i + 1);
-	if (ptr == 0)
-		return (0);
-	for (j = 0; j < i; j++)
-		*(ptr + j) = *(str + j);
-	ptr[i] = '\0';
-	return (ptr);
+		ptr = (char *)malloc(sizeof(char) * i + 1);
+		if (ptr == NULL)
+			return (NULL);
+
+		for (j = 0; j < i; j++)
+			*(ptr + j) = *(str + j);
+
+		ptr[i] = '\0';
+
+		return (ptr);
 }
