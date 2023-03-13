@@ -89,7 +89,7 @@ char **strtow(char *str)
 	len = _strlen(ptr);
 	height = check_height(ptr);
 	p = malloc(sizeof(*p) * height + 1);
-	if (p == NULL)
+	if (p == NULL || len <= 1)
 		return (NULL);
 
 	for (i = 0; i <= len; i++)
