@@ -18,7 +18,7 @@ char **strtow(char *str)
 	char **ptr;
 	int i, j = 0, row = 0, col, width = 0, height = 0;
 
-	for (i = 0; str[i] != '\n'; i++)
+	for (i = 0; str[i] != '\0'; i++)
 	{
 		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
 			height++;
@@ -34,8 +34,7 @@ char **strtow(char *str)
 	{
 		if (str[i] != ' ')
 			width++;
-		if ((i > 0 && str[i] == ' ' && str[i - 1] != ' ') ||
-				(str[i] != ' ' && str[i + 1] == '\0'))
+		if (str[i] != ' ' && (str[i + 1] == ' ' || str[i + 1] == '\0'))
 		{
 			ptr[row] = malloc(sizeof(char) * width + 1);
 			if (ptr[row] == NULL)
@@ -46,7 +45,7 @@ char **strtow(char *str)
 				return (NULL);
 			}
 			col = 0;
-			for (j = i - width; j < i; j++)
+			for (j = i - width + 1; j < i + 1; j++)
 				ptr[row][col++] = str[j];
 			ptr[row][col] = '\0';
 			row++;
