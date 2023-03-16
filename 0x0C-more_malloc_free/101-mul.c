@@ -29,24 +29,26 @@ int main(int argc, char *argv[])
 
 	l1 = check_len(argv[1]);
 	l2 = check_len(argv[2]);
+	if ((l1 == 1 && argv[1][0] == '0') || (l2 == 1 && argv[2][0] == '0'))
+	{
+		printf("0\n");
+		return (0);
+	}
 	len = l1 + l2;
 	num1 = _calloc(l1, sizeof(*num1));
 	num2 = _calloc(l2, sizeof(*num2));
 	ans = _calloc(len, sizeof(*ans));
 	if (num1 == NULL || num2 == NULL || ans == NULL)
 		exit(98);
-
 	for (i = l1 - 1, j = 0; i >= 0; i--, j++)
 		num1[j] = argv[1][i] - '0';
 	for (i = l2 - 1, j = 0; i >= 0; i--, j++)
 		num2[j] = argv[2][i] - '0';
-
 	for (i = 0; i < l1; i++)
 	{
 		for (j = 0; j < l2; j++)
 			ans[i + j] += num1[i] * num2[j];
 	}
-
 	for (i = 0; i < len - 1; i++)
 	{
 		int tmp = ans[i] % 10;
@@ -54,7 +56,6 @@ int main(int argc, char *argv[])
 		ans[i + 1] += ans[i] / 10;
 		ans[i] = tmp;
 	}
-
 	output(len, ans);
 	return (0);
 }
@@ -149,5 +150,6 @@ void output(int len, int *ptr)
 	}
 	for (; i >= 0; i--)
 		_putchar(ptr[i] + '0');
+
 	_putchar('\n');
 }
