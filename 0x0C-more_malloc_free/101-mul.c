@@ -16,12 +16,12 @@
  *
  * Return: 0 on success
  */
-int main(int ac, char **av)
+int main(int argc, char *argv[])
 {
-	int i, j, len, l1 = check_len(av[1]), l2 = check_len(av[2]);
+	int i, j, len, l1 = check_len(argv[1]), l2 = check_len(argv[2]);
 	int *num1, *num2, *ans;
 
-	if (ac != 3 || check_dig(ac, av))
+	if (argc != 3 || check_dig(argc, argv))
 	{
 		error();
 		exit(98);
@@ -34,9 +34,9 @@ int main(int ac, char **av)
 	if (num1 == NULL || num2 == NULL || ans == NULL)
 		return (-1);
 	for (i = l1 - 1, j = 0; i >= 0; i--, j++)
-		num1[j] = av[1][i] - '0';
+		num1[j] = argv[1][i] - '0';
 	for (i = l2 - 1, j = 0; i >= 0; i--, j++)
-		num2[j] = av[2][i] - '0';
+		num2[j] = argv[2][i] - '0';
 	for (i = 0; i < l1; i++)
 	{
 		for (j = 0; j < l2; j++)
