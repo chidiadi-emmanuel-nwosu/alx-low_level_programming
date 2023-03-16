@@ -18,10 +18,10 @@
  */
 int main(int ac, char **av)
 {
-	int i, j, len, l1 = _strlen(av[1]), l2 = _strlen(av[2]);
+	int i, j, len, l1 = check_len(av[1]), l2 = check_len(av[2]);
 	int *num1, *num2, *ans;
 
-	if (ac != 3 || _isdigit(ac, av))
+	if (ac != 3 || check_dig(ac, av))
 	{
 		error();
 		exit(98);
@@ -79,13 +79,13 @@ void error(void)
 
 
 /**
- * _isdigit - checks if all characters in an array is digit
+ * check_dig - checks if all characters in an array is digit
  * @ac: number of arrays in av array
  * @av: array of arrays
  *
  * Return: 0 on success, 1 otherwise
  */
-int _isdigit(int ac, char **av)
+int check_dig(int ac, char **av)
 {
 	int i = 1;
 
@@ -105,12 +105,12 @@ int _isdigit(int ac, char **av)
 
 
 /**
- * _strlen - checks the length of a string
+ * check_len - checks the length of a string
  * @str: input string
  *
  * Return: length of the string
  */
-int _strlen(char *str)
+int check_len(char *str)
 {
 	int i = 0;
 
