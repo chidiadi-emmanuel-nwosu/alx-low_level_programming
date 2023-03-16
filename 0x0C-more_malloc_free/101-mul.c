@@ -18,7 +18,7 @@
  */
 int main(int argc, char *argv[])
 {
-	int i, j, len, l1 = check_len(argv[1]), l2 = check_len(argv[2]);
+	int i, j, len, l1, l2;
 	int *num1, *num2, *ans;
 
 	if (argc != 3 || check_dig(argc, argv))
@@ -27,17 +27,17 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
+	l1 = check_len(argv[1]);
+	l2 = check_len(argv[2]);
 	len = l1 + l2;
 	num1 = _calloc(l1, sizeof(*num1));
 	num2 = _calloc(l2, sizeof(*num2));
 	ans = _calloc(len, sizeof(*ans));
-
 	if (num1 == NULL || num2 == NULL || ans == NULL)
 		exit(98);
 
 	for (i = l1 - 1, j = 0; i >= 0; i--, j++)
 		num1[j] = argv[1][i] - '0';
-
 	for (i = l2 - 1, j = 0; i >= 0; i--, j++)
 		num2[j] = argv[2][i] - '0';
 
@@ -56,7 +56,6 @@ int main(int argc, char *argv[])
 	}
 
 	output(len, ans);
-
 	return (0);
 }
 
