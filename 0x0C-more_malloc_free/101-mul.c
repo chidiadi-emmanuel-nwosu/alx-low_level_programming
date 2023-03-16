@@ -4,7 +4,6 @@
  */
 
 
-#include <stdio.h>
 #include <stdlib.h>
 #include "main.h"
 
@@ -12,7 +11,7 @@
 void print(int, int *);
 void error(void);
 int _isdigit(int, char **);
-void *_calloc(unsigned int nmemb, unsigned int size);
+void *chidi(unsigned int nmemb, unsigned int size);
 int _strlen(char *);
 
 
@@ -39,9 +38,9 @@ int main(int ac, char **av)
 	l2 = _strlen(av[2]);
 	len = l1 + l2;
 
-	num1 = _calloc(l1, sizeof(*num1));
-	num2 = _calloc(l2, sizeof(*num2));
-	ans = _calloc(len, sizeof(*ans));
+	num1 = chidi(l1, sizeof(*num1));
+	num2 = chidi(l2, sizeof(*num2));
+	ans = chidi(len, sizeof(*ans));
 
 	if (num1 == NULL || num2 == NULL || ans == NULL)
 		return (-1);
@@ -133,13 +132,13 @@ int _strlen(char *str)
 
 
 /**
- * _calloc - allocates memory for an array using malloc
+ * chidi - allocates memory for an array using malloc
  * @nmemb: size of elements in the array
  * @size: size of each element
  *
  * Return: pointer to the allocated memory
  */
-void *_calloc(unsigned int nmemb, unsigned int size)
+void *chidi(unsigned int nmemb, unsigned int size)
 {
 	unsigned int i;
 	char *ptr = NULL;
