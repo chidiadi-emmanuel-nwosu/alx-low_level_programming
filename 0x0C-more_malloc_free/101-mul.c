@@ -6,13 +6,13 @@
 
 #include <stdlib.h>
 #include "main.h"
-
+#include <stdio.h>
 
 
 /**
  * main - program that multiplies two positive numbers
- * @ac: number of command line arguments
- * @av: array of command line arguments
+ * @argc: number of command line arguments
+ * @argv: array of command line arguments
  *
  * Return: 0 on success
  */
@@ -23,25 +23,30 @@ int main(int argc, char *argv[])
 
 	if (argc != 3 || check_dig(argc, argv))
 	{
-		error();
+		printf("Error\n");
 		exit(98);
 	}
 
 	len = l1 + l2;
-	num1 = chidi(l1, sizeof(*num1));
-	num2 = chidi(l2, sizeof(*num2));
-	ans = chidi(len, sizeof(*ans));
+	num1 = _calloc(l1, sizeof(*num1));
+	num2 = _calloc(l2, sizeof(*num2));
+	ans = _calloc(len, sizeof(*ans));
+
 	if (num1 == NULL || num2 == NULL || ans == NULL)
-		return (-1);
+		exit(98);
+
 	for (i = l1 - 1, j = 0; i >= 0; i--, j++)
 		num1[j] = argv[1][i] - '0';
+
 	for (i = l2 - 1, j = 0; i >= 0; i--, j++)
 		num2[j] = argv[2][i] - '0';
+
 	for (i = 0; i < l1; i++)
 	{
 		for (j = 0; j < l2; j++)
 			ans[i + j] += num1[i] * num2[j];
 	}
+
 	for (i = 0; i < len - 1; i++)
 	{
 		int tmp = ans[i] % 10;
@@ -49,31 +54,10 @@ int main(int argc, char *argv[])
 		ans[i + 1] += ans[i] / 10;
 		ans[i] = tmp;
 	}
-	for (i = len - 1; i >= 0; i--)
-	{
-		if (ans[i] != 0)
-			break;
-	}
-	for (; i >= 0; i--)
-		_putchar(ans[i] + '0');
-	_putchar('\n');
+
+	output(len, ans);
+
 	return (0);
-}
-
-
-
-/**
- * error - prints error to standard output
- *
- * Return: void
- */
-void error(void)
-{
-	int i = 0;
-	char *e = "Error\n";
-
-	while (e[i])
-		_putchar(e[i++]);
 }
 
 
@@ -122,13 +106,13 @@ int check_len(char *str)
 
 
 /**
- * chidi - allocates memory for an array using malloc
+ * _calloc - allocates memory for an array using malloc
  * @nmemb: size of elements in the array
  * @size: size of each element
  *
  * Return: pointer to the allocated memory
  */
-void *chidi(unsigned int nmemb, unsigned int size)
+void *_calloc(unsigned int nmemb, unsigned int size)
 {
 	unsigned int i;
 	char *ptr = NULL;
@@ -144,4 +128,27 @@ void *chidi(unsigned int nmemb, unsigned int size)
 	ptr = (void *)ptr;
 
 	return (ptr);
+}
+
+
+
+/**
+ * output - prints to stdout
+ * @len: length of array
+ * @ptr: array pointer
+ *
+ * Return: void
+ */
+void output(int len, int *ptr)
+{
+	int i;
+
+	for (i = len - 1; i >= 0; i--)
+	{
+		if (ptr[i] != 0)
+			break;
+	}
+	for (; i >= 0; i--)
+		_putchar(ptr[i] + '0');
+	_putchar('\n');
 }

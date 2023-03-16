@@ -13,10 +13,9 @@ void *_calloc(unsigned int nmemb, unsigned int size);
 int *array_range(int min, int max);
 void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size);
 
-void error(void);
 int check_dig(int, char **);
-void *chidi(unsigned int nmemb, unsigned int size);
 int check_len(char *);
+void output(int, int *);
 
 
 #endif
