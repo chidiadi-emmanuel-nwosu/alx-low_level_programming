@@ -20,28 +20,36 @@ void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
 	unsigned int i = 0;
 	
 	if (new_size <= old_size)
+	{
 		return (ptr);
-	if (new_size == 0 && ptr != NULL)
+	}
+	else if (new_size == 0 && ptr != NULL)
 	{
 		free(ptr);
 		return (NULL);
 	}
-
-	p = malloc(new_size);
-	if (p == NULL)
-		return (NULL);
-	if (new_size > old_size)
+	else if (ptr == NULL)
 	{
-		char *cast_p = (char *)p;
-		char *cast_ptr = (char *)ptr;
+		p = malloc(new_size);
+		if (p == NULL)
+			return (NULL);
+		else
+			return (p);
+	}
+	else
+	{
+		char *cast_p, *cast_ptr;
+		p = malloc(new_size);
+		if (p == NULL)
+			return (NULL);
+		cast_p = (char *)p;
+		cast_ptr = (char *)ptr;
 		for (; i < old_size; i++)
 			cast_p[i] = cast_ptr[i];
 
 		cast_p = (void *)cast_p;
 
 		free(cast_ptr);
-
 		return (cast_p);
 	}
-	return (p);
 }
