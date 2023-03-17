@@ -46,7 +46,6 @@ int main(int argc, char *argv[])
 		for (j = 0; j < l2; j++)
 			ans[i + j] += num1[i] * num2[j];
 	}
-
 	for (i = 0; i < len - 1; i++)
 	{
 		int tmp = ans[i] % 10;
@@ -55,6 +54,9 @@ int main(int argc, char *argv[])
 		ans[i] = tmp;
 	}
 	output(len, ans);
+	free(num1);
+	free(num2);
+	free(ans);
 	return (0);
 }
 
