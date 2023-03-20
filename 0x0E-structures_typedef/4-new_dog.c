@@ -1,4 +1,4 @@
-/**
+/*
  * File: 4-new_dog.c
  * Author: Chidiadi E. Nwosu
  */
@@ -22,7 +22,7 @@ dog_t *new_dog(char *name, float age, char *owner)
 
 	if (ptr == NULL)
 		return (NULL);
-	
+
 	ptr->name = malloc(_strlen(name) + 1);
 	ptr->owner = malloc(_strlen(owner) + 1);
 
@@ -53,7 +53,8 @@ int _strlen(char *s)
 {
 	int i;
 
-	for (i = 0; s[i]; i++);
+	for (i = 0; s[i]; i++)
+		;
 
 	return (i);
 }
