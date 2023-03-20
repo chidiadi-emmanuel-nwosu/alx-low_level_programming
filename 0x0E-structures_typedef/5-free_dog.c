@@ -1,4 +1,4 @@
-/**
+/*
  * File: 5-free_dog.c
  * Author: Chidiadi E. Nwosu
  */
