@@ -4,7 +4,10 @@
  */
 #include "dog.h"
 #include <stdlib.h>
-#include <string.h>
+
+int _strlen(char *);
+char *_strcpy(char *dest, char *src);
+
 /**
  * new_dog - function that creates a struct dog variable
  * @name: first element of the new variable
@@ -16,17 +19,68 @@
 dog_t *new_dog(char *name, float age, char *owner)
 {
 	dog_t *ptr = malloc(sizeof(*ptr));
-	char *copy_name = malloc(strlen(name) + 1);
-	char *copy_owner = malloc(strlen(owner) + 1);
 
 	if (ptr == NULL)
 		return (NULL);
-	copy_name = name;
-	copy_owner = owner;
+	
+	ptr->name = malloc(_strlen(name) + 1);
+	ptr->owner = malloc(_strlen(owner) + 1);
 
-	ptr->name = copy_name;
+	if (!ptr->name || !ptr->owner)
+	{
+		free(ptr->name);
+		free(ptr->owner);
+		free(ptr);
+		return (NULL);
+	}
+
+	ptr->name = _strcpy(ptr->name, name);
 	ptr->age = age;
-	ptr->owner = copy_owner;
+	ptr->owner = _strcpy(ptr->owner, owner);
 
 	return (ptr);
+}
+
+
+
+/**
+ * _strlen - checks the length
+ * @s: input string
+ *
+ * Return: length of string
+ */
+int _strlen(char *s)
+{
+	int i;
+
+	for (i = 0; s[i]; i++);
+
+	return (i);
+}
+
+
+
+/**
+ * _strcpy - copies string
+ * @dest: destination string
+ * @src: source string
+ *
+ * Return: dest
+ */
+char *_strcpy(char *dest, char *src)
+{
+	int i = 0;
+
+	if (dest == NULL)
+		return (NULL);
+
+	while (src[i] != '\0')
+	{
+		dest[i] = src[i];
+		i++;
+	}
+
+	dest[i] = '\0';
+
+	return (dest);
 }
