@@ -10,7 +10,7 @@
  * @s1: string1
  * @s2: string2
  *
- * Return: +ve, 0, or -ve value
+ * Return: 0 if s1 and s2 are the same, +ve or -ve value otherwise
  */
 int _strcmp(char *s1, char *s2)
 {
