@@ -16,7 +16,7 @@
 int main(int ac, char **av)
 {
 	int i, byte;
-	int (*func_ptr)(int, char **) = main;
+	int (*func_ptr)(int, char **);
 	unsigned char opcodes;
 
 	if (ac != 2)
@@ -31,11 +31,13 @@ int main(int ac, char **av)
 		printf("Error\n");
 		exit(2);
 	}
+	
+	func_ptr = main;
 
 	for (i = 0; i < byte; i++)
 	{
 		opcodes = *(unsigned char *)func_ptr++;
-		printf("%.2x", opcodes);
+		printf("%02x", opcodes);
 		printf(" ");
 	}
 	printf("\n");
