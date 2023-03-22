@@ -31,7 +31,7 @@ int main(int ac, char **av)
 		printf("Error\n");
 		exit(2);
 	}
-	
+
 	func_ptr = main;
 
 	for (i = 0; i < byte; i++)
