@@ -11,8 +11,6 @@
  * get_op_func - selects the the correct function to perform
  *               the operation asked by the user.
  * @s: operator passed as argument to the program
- * @num1: first operand
- * @num2: second operand
  *
  * Return: result of the operation of num1 and num2.
  */

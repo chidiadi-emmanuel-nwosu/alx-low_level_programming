@@ -9,9 +9,8 @@
 
 /**
  * main - performs operations on two input numbers
- * @num1: first number input
- * @num2: second number input
- * @op: operator
+ * @ac: number of command line arguments
+ * @av: array of command line arguments
  *
  * Return: 0 (success)
  */
@@ -33,7 +32,7 @@ int main(int ac, char **av)
 	}
 	num1 = atoi(av[1]);
 	num2 = atoi(av[3]);
-	
+
 	if ((*av[2] == '/' || *av[2] == '%') && num2 == 0)
 	{
 		printf("Error\n");
@@ -41,6 +40,6 @@ int main(int ac, char **av)
 	}
 
 	printf("%i\n", get_op_func(av[2])(num1, num2));
-	
+
 	return (0);
 }
