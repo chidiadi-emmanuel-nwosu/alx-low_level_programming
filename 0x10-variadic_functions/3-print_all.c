@@ -37,7 +37,7 @@ void print_all(const char * const format, ...)
 				break;
 			case 's':
 				tmp = va_arg(ptr, char *);
-				if (tmp)
+				if (tmp && *tmp)
 				{
 					printf("%s", tmp);
 					break;
@@ -45,8 +45,8 @@ void print_all(const char * const format, ...)
 				printf("(nil)");
 		}
 
-		if ((format[i] == 'c' || format[i] == 'i' ||
-					format[i] == 'f' || format[i] == 's') && format[i + 1])
+		if ((format[i] == 'c' || format[i] == 'i' || format[i] == 'f' ||
+					format[i] == 's') && format[i + 1])
 			printf("%s", sep);
 
 		i++;
