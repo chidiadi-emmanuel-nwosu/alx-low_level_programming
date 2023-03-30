@@ -6,7 +6,7 @@
 #include "lists.h"
 
 /**
- * add_node - adds a new node at the end of a list_t list.
+ * add_node_end - adds a new node at the end of a list_t list.
  * @head: pointer to the head node
  * @str: string to be added to the list
  *
@@ -15,33 +15,28 @@
 list_t *add_node_end(list_t **head, const char *str)
 {
 	list_t *new;
-	list_t *tmp;
-	int len = 0;
+	list_t *last;
 
-	new = malloc(sizeof(list_t));
+	new = malloc(sizeof(*new));
 	if (new == NULL)
 		return (NULL);
 
-	for (; str[len]; len++)
-		;
-
-
 	new->str = strdup(str);
-	new->len = len;
+	new->len = strlen(str);
 	new->next = NULL;
 
 	if (*head == NULL)
 	{
 		*head = new;
+		return (*head);
 	}
-	else
-	{
-		tmp = *head;
 
-		while (tmp->next != NULL)
-			tmp = tmp->next;
-	}
-	tmp->next = new;
+	last = *head;
+
+	while (last->next)
+		last = last->next;
+
+	last->next = new;
 
 	return (*head);
 }
