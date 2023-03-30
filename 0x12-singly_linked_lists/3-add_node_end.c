@@ -1,5 +1,5 @@
 /*
- * File: 2-add_node.c
+ * File: 3-add_node_end.c
  * Author: Chidiadi E. Nwosu
  */
 
