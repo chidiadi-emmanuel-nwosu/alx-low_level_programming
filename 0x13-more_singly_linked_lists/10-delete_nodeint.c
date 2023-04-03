@@ -8,11 +8,11 @@
 /**
  * delete_nodeint_at_index - deletes a new node at a given position.
  * @head: pointer to the head node
- * @idx: index of the node, starting at 0
+ * @index: index of the node, starting at 0
  *
  * Return: the head node on success, NULL on failure.
  */
-int delete_nodeint_at_index(listint_t **head, __attribute__((unused)) unsigned int index)
+int delete_nodeint_at_index(listint_t **head, unsigned int index)
 {
 	listint_t *tmp = *head;
 	unsigned int len = 0;
