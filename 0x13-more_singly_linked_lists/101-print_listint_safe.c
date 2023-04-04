@@ -78,12 +78,21 @@ size_t check_loop(const listint_t *head)
 	}
 	else
 	{
-		while (slow->next != fast)
+		slow = head;
+
+		while (slow != fast)
+		{
+			count += 1;
+			slow = slow->next;
+			fast = fast->next;
+		}
+		slow = slow->next;
+		while (fast != slow)
 		{
 			count += 1;
 			slow = slow->next;
 		}
 	}
 
-	return (count + 2);
+	return (count);
 }
