@@ -14,18 +14,14 @@ size_t check_loop(const listint_t *head);
  */
 size_t print_listint_safe(const listint_t *head)
 {
-	size_t count = 0;
+	size_t count = 0, i = 0;
 	const listint_t *tmp = head;
 
-	if (head == NULL)
-		return (0);
 
 	count = check_loop(head);
 
 	if (count)
 	{
-		size_t i = 0;
-
 		for (; i < count; i++)
 		{
 			printf("[%p] %i\n", (void *)tmp, tmp->n);
@@ -89,8 +85,5 @@ size_t check_loop(const listint_t *head)
 		}
 	}
 
-	if (fast == head)
-		return (count + 1);
-	else
-		return (count + 2);
+	return (count + 2);
 }
