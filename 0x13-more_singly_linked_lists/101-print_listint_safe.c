@@ -57,7 +57,13 @@ size_t print_listint_safe(const listint_t *head)
 size_t check_loop(const listint_t *head)
 {
 	size_t count = 1, check = 0;
-	const listint_t *slow = head->next, *fast = head->next->next;
+	const listint_t *slow, *fast;
+
+	if (head == NULL || head->next == NULL)
+		return (0);
+
+	slow = head->next;
+	fast = head->next->next;
 
 	while (slow && fast && fast->next)
 	{
