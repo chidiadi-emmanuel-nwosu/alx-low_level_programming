@@ -5,6 +5,7 @@
 
 #include "lists.h"
 
+int check_node(listint_t *head, listint_t **node_list, size_t count);
 /**
  * reverse_listint - reverse a listint_t linked list.
  * @head: pointer to the head node
