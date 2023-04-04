@@ -5,6 +5,7 @@
 
 #include "lists.h"
 
+size_t check_loop(const listint_t *head);
 /**
  * print_listint_safe - prints a listint_t linked list.
  * @head: pointer to the head node
@@ -14,49 +15,76 @@
 size_t print_listint_safe(const listint_t *head)
 {
 	size_t count = 0;
-	listint_t *node_list[1024];
-	listint_t *tmp;
+	const listint_t *tmp = head;
 
 	if (head == NULL)
 		exit(98);
 
-	printf("[%p] %i\n", (void *)head, head->n);
-	tmp = head->next;
+	count = check_loop(head);
 
-	while (tmp)
+	if (count)
 	{
-		if (check_node(tmp, node_list, count))
+		size_t i = 0;
+
+		for (; i <= count; i++)
 		{
-			printf("-> [%p] %i\n", (void *)tmp, tmp->n);
-			return (count);
+			printf("[%p] %i\n", (void *)tmp, tmp->n);
+			tmp = tmp->next;
 		}
-		printf("[%p] %i\n", (void *)tmp, tmp->n);
-		node_list[count] = tmp;
-		count += 1;
-		tmp = tmp->next;
+		printf("-> [%p] %i\n", (void *)tmp, tmp->n);
 	}
+	else
+	{
+		while (tmp)
+		{
+			printf("[%p] %i\n", (void *)tmp, tmp->n);
+			count += 1;
+			tmp = tmp->next;
+		}
+	}
+
 	return (count);
 }
 
 
 
 /**
- * check_node - checks for duplicate value in an array.
- * @head: input value to check for.
- * @node_list: array to be checked.
- * @count: number of times to iterate the array.
+ * check_loop - checks for loop in a linked listint_t.
+ * @head: head node input.
  *
  * Return: the number of node in the list
  */
-int check_node(listint_t *head, listint_t **node_list, size_t count)
+size_t check_loop(const listint_t *head)
 {
-	size_t i = 0;
+	size_t count = 1, check = 0;
+	const listint_t *slow = head->next, *fast = head->next->next;
 
-	for (; i < count; i++)
+	while (slow && fast && fast->next)
 	{
-		if (head == node_list[i])
-			return (1);
+		if (slow == fast)
+		{
+			check = 1;
+			break;
+		}
+		slow = slow->next;
+		fast = fast->next->next;
 	}
 
-	return (0);
+	if (check == 0)
+	{
+		return (0);
+	}
+	else
+	{
+		while (slow->next != fast)
+		{
+			count += 1;
+			slow = slow->next;
+		}
+	}
+
+	if (fast == head)
+		return (count);
+	else
+		return (count + 1);
 }
