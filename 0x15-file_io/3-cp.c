@@ -50,8 +50,8 @@ int main(int argc, char *argv[])
 
 /**
  * close_fd - closes a file descriptor(fd).
- *@fd: fd to be closed.
-
+ * @fd: fd to be closed.
+ *
  * Return: void
  */
 void close_fd(int fd)
