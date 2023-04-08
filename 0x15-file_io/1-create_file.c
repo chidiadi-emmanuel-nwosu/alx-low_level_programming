@@ -19,21 +19,24 @@ int create_file(const char *filename, char *text_content)
 	if (!filename)
 		return (-1);
 
-	for (; text_content[re]; re++)
-		;
-
 	fd = open(filename, O_CREAT | O_TRUNC | O_RDWR, 00600);
 	if (fd < 0)
 		return (-1);
 
-	wr = write(fd, text_content, re);
-	if (wr < 0 || re != wr)
+	if (text_content)
 	{
-		close(fd);
-		return (-1);
+		for (; text_content[re]; re++)
+			;
+
+		wr = write(fd, text_content, re);
+		if (wr < 0 || re != wr)
+		{
+			close(fd);
+			return (-1);
+		}
 	}
 
 	close(fd);
-	
+
 	return (1);
 }
