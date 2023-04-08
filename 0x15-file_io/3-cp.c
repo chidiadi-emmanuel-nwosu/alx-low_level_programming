@@ -34,7 +34,8 @@ int main(int argc, char *argv[])
 		check_error(re, 1, argv[1]);
 
 		wr = write(file_to, buf, re);
-		check_error(1, wr, argv[2]);
+		if (wr < 0 || wr != re)
+			check_error(1, wr, argv[2]);
 
 	} while (re > 0);
 
