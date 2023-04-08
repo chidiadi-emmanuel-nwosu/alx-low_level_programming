@@ -52,8 +52,6 @@ int main(int argc, char *argv[])
 			exit(99);
 		}
 
-		close_fd(file_to);
-
 	} while (re > 0);
 
 	close_fd(file_to);
