@@ -80,9 +80,10 @@ void close_fd(int fd)
  *
  * Return: void
  */
-void *init_buffer(void)
+char *init_buffer(void)
 {
-	void *buf = malloc(1024);
+	char *buf = malloc(sizeof(char) * 1024);
+
 	if (buf == NULL)
 	{
 		dprintf(STDERR_FILENO, "buffer memory allocation failed\n");
