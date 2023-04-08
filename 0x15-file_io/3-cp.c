@@ -7,8 +7,8 @@
 
 /**
  * main - program that copies the content of a file to another file.
- * @ac: number of commandline arguments.
- * @av: array of commandline arguments.
+ * @argc: number of commandline arguments.
+ * @argv: array of commandline arguments.
  *
  * Return: 0 on success.
  */
