@@ -15,10 +15,11 @@
 int main(int argc, char *argv[])
 {
 	int file_from, file_to;
+	char buf[1024];
 
 	if (argc != 3)
 	{
-		dprintf(STDERR_FILENO, "Usage: %s file_from file_to\n", argv[0]);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 
@@ -36,6 +37,28 @@ int main(int argc, char *argv[])
 		exit(99);
 	}
 
+	read(file_from, buf, 1024);
+
+	close_fd(file_to);
+	close_fd(file_from);
+
 	return (0);
 }
 
+
+
+
+/**
+ * close_fd - closes a file descriptor(fd).
+ *@fd: fd to be closed.
+
+ * Return: void
+ */
+void close_fd(int fd)
+{
+	if (close(fd) < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", fd);
+		exit(100);
+	}
+}
