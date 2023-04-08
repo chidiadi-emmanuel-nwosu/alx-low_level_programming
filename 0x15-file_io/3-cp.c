@@ -34,8 +34,7 @@ int main(int argc, char *argv[])
 		check_error(re, 1, argv[1]);
 
 		wr = write(file_to, buf, re);
-		if (wr < 0 || wr != re)
-			check_error(1, wr, argv[2]);
+		check_error(1, wr, argv[2]);
 
 	} while (re > 0);
 
@@ -83,7 +82,7 @@ void check_error(int file_from, int file_to, char *filename)
 
 	if (file_to < 0)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
 		exit(99);
 	}
 }
