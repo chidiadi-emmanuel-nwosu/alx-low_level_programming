@@ -24,33 +24,17 @@ int main(int argc, char *argv[])
 	}
 
 	file_from = open(argv[1], O_RDONLY);
-	if (file_from < 0)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-		exit(98);
-	}
+	check_error(file_from, 1, argv[1]);
 
 	file_to = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY | O_APPEND, 00664);
-	if (file_to < 0)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-		exit(99);
-	}
+	check_error(1, file_to, argv[2]);
 
-	do {	
+	do {
 		re = read(file_from, buf, 1024);
-		if (re < 0)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-			exit(98);
-		}
+		check_error(re, 1, argv[1]);
 
 		wr = write(file_to, buf, re);
-		if (wr < 0 || wr != re)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			exit(99);
-		}
+		check_error(1, wr, argv[2]);
 
 	} while (re > 0);
 
@@ -74,5 +58,31 @@ void close_fd(int fd)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", fd);
 		exit(100);
+	}
+}
+
+
+
+
+/**
+ * check_error - checks if syscall function returns an error
+ * @file_from: fd input 1
+ * @file_to: fd input 2
+ * @filename: filename
+ *
+ * Return: void
+ */
+void check_error(int file_from, int file_to, char *filename)
+{
+	if (file_from < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
+		exit(98);
+	}
+
+	if (file_to < 0)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
+		exit(99);
 	}
 }
