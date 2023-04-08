@@ -14,8 +14,7 @@
  */
 int main(int argc, char *argv[])
 {
-	int file_from, file_to, re, wr;
-	char *buffer;
+	int file_from, file_to;
 
 	if (argc != 3)
 	{
@@ -36,9 +35,6 @@ int main(int argc, char *argv[])
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
 		exit(99);
 	}
-
-	buffer = malloc(1024);
-
 
 	return (0);
 }
