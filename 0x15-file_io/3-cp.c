@@ -12,28 +12,28 @@
  *
  * Return: 0 on success.
  */
-int main(int ac, char *av[])
+int main(int argc, char *argv[])
 {
 	int file_from, file_to, re, wr;
 	char *buffer;
 
-	if (ac != 3)
+	if (argc != 3)
 	{
 		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 		exit(97);
 	}
 
-	file_from = open(av[1], O_RDONLY);
+	file_from = open(argv[1], O_RDONLY);
 	if (file_from < 0)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", av[1]);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
 		exit(98);
 	}
 
-	file_to = open(av[2], O_CREAT | O_TRUNC | O_WRONLY, 00664);
+	file_to = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 00664);
 	if (file_to < 0)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
 		exit(99);
 	}
 
@@ -43,11 +43,11 @@ int main(int ac, char *av[])
 		wr = write(file_to, buffer, re);
 		if (wr < 0)
 		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]);
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
 			exit(99);
 		}
 
-		file_to = open(av[2], O_WRONLY | O_APPEND);
+		file_to = open(argv[2], O_WRONLY | O_APPEND);
 	} while (re > 0);
 
 
