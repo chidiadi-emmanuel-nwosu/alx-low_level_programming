@@ -37,7 +37,7 @@ int main(int ac, char *av[])
 		exit(99);
 	}
 
-	buffer = init_buffer();
+	buffer = malloc(1024);
 	do {
 		re = read(file_from, buffer, 1024);
 		wr = write(file_to, buffer, re);
@@ -74,24 +74,4 @@ void close_fd(int fd)
 		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", fd);
 		exit(100);
 	}
-}
-
-
-
-/**
- * init_buffer - initialises a buffer of 1024 bytes
- *
- * Return: void
- */
-char *init_buffer(void)
-{
-	char *buf = malloc(sizeof(char) * 1024);
-
-	if (buf == NULL)
-	{
-		dprintf(STDERR_FILENO, "buffer memory allocation failed\n");
-		exit(99);
-	}
-
-	return (buf);
 }
