@@ -50,28 +50,7 @@ int main(int ac, char *av[])
 		file_to = open(av[2], O_WRONLY | O_APPEND);
 	} while (re > 0);
 
-	free(buffer);
-	close_fd(file_from);
-	close_fd(file_to);
 
 	return (0);
 }
 
-
-
-/**
- * close_fd - closes an open file descriptor.
- * @fd: file descriptor input.
- *
- * Return: void
- */
-void close_fd(int fd)
-{
-	int res = close(fd);
-
-	if (res < 0)
-	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", fd);
-		exit(100);
-	}
-}
