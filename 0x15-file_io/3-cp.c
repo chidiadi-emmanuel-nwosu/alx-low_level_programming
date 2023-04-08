@@ -14,8 +14,7 @@
  */
 int main(int argc, char *argv[])
 {
-	int file_from, file_to;
-	char buf[1024];
+	int file_from, file_to, re, wr;
 
 	if (argc != 3)
 	{
@@ -37,11 +36,29 @@ int main(int argc, char *argv[])
 		exit(99);
 	}
 
-	read(file_from, buf, 1024);
+	do {
+		char buf[1024];
+		
+		re = read(file_from, buf, 1024);
+		if (re < 0)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+			exit(98);
+		}
+
+		wr = write(file_to, buf, re);
+		if (wr < 0 || wr != re)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+			exit(99);
+		}
+
+		file_to = open(argv[2], O_APPEND);
+		
+	} while (re > 0);
 
 	close_fd(file_to);
 	close_fd(file_from);
-
 	return (0);
 }
 
