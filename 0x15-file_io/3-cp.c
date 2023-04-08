@@ -12,7 +12,7 @@
  *
  * Return: 0 on success.
  */
-int main(int ac, char **av)
+int main(int ac, char *av[])
 {
 	int file_from, file_to, re, wr;
 	char *buffer;
@@ -40,13 +40,14 @@ int main(int ac, char **av)
 	buffer = init_buffer();
 	do {
 		re = read(file_from, buffer, 1024);
-
 		wr = write(file_to, buffer, re);
 		if (wr < 0)
 		{
 			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", av[2]);
 			exit(99);
 		}
+
+		file_to = open(av[2], O_WRONLY | O_APPEND);
 	} while (re > 0);
 
 	free(buffer);
@@ -66,7 +67,9 @@ int main(int ac, char **av)
  */
 void close_fd(int fd)
 {
-	if (close(fd) < 0)
+	int res = close(fd);
+
+	if (res < 0)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", fd);
 		exit(100);
