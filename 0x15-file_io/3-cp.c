@@ -53,6 +53,8 @@ int main(int argc, char *argv[])
 			exit(99);
 		}
 
+		close_fd(file_to);
+
 		file_to = open(argv[2], O_APPEND);
 		
 	} while (re > 0);
