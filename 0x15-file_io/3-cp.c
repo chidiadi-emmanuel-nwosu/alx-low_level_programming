@@ -38,17 +38,6 @@ int main(int argc, char *argv[])
 	}
 
 	buffer = malloc(1024);
-	do {
-		re = read(file_from, buffer, 1024);
-		wr = write(file_to, buffer, re);
-		if (wr < 0)
-		{
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-			exit(99);
-		}
-
-		file_to = open(argv[2], O_WRONLY | O_APPEND);
-	} while (re > 0);
 
 
 	return (0);
