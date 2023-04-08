@@ -15,6 +15,7 @@
 int main(int argc, char *argv[])
 {
 	int file_from, file_to, re, wr;
+	char buf[1024];
 
 	if (argc != 3)
 	{
@@ -29,16 +30,14 @@ int main(int argc, char *argv[])
 		exit(98);
 	}
 
-	file_to = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY, 00664);
+	file_to = open(argv[2], O_CREAT | O_TRUNC | O_WRONLY | O_APPEND, 00664);
 	if (file_to < 0)
 	{
 		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
 		exit(99);
 	}
 
-	do {
-		char buf[1024];
-		
+	do {	
 		re = read(file_from, buf, 1024);
 		if (re < 0)
 		{
@@ -55,8 +54,6 @@ int main(int argc, char *argv[])
 
 		close_fd(file_to);
 
-		file_to = open(argv[2], O_APPEND);
-		
 	} while (re > 0);
 
 	close_fd(file_to);
