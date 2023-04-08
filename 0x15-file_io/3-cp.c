@@ -86,7 +86,7 @@ void *init_buffer(void)
 	if (buf == NULL)
 	{
 		dprintf(STDERR_FILENO, "buffer memory allocation failed\n");
-		exit(101);
+		exit(99);
 	}
 
 	return (buf);
