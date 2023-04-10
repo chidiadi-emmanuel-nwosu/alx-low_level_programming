@@ -25,12 +25,14 @@ int main(int argc, char *argv[])
 	fd = open(argv[1], O_RDONLY);
 	check_error(fd, 1, argv[1]);
 
-	/*Set file offset to zero*/
-	lseek(fd, 0, SEEK_SET);
-
 	/*Allocate memory to Elf64_Ehdr pointer*/
 	elf = malloc(sizeof(*elf));
-
+	if (elf == NULL)
+	{
+		dprintf(STDERR_FILENO, "Error: memory alloation failed\n");
+		close(fd);
+		exit(98);
+	}
 	/*Read file into elf and check for errors*/
 	re = read(fd, elf, sizeof(*elf));
 	check_error(re, 1, "elf");
@@ -52,7 +54,6 @@ int main(int argc, char *argv[])
 	/*Free and close files*/
 	free(elf);
 	close_fd(fd);
-
 	return (0);
 }
 
