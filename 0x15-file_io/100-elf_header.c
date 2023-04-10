@@ -87,7 +87,7 @@ void check_elf(unsigned char *e_ident)
 	if (!(e_ident[0] == 0x7f && e_ident[1] == 'E'
 				&& e_ident[2] == 'L' && e_ident[3] == 'F'))
 	{
-		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
+		write(STDERR_FILENO, "Usage: elf_header elf_filename\n", 31);
 		exit(98);
 	}
 }
@@ -243,8 +243,8 @@ void close_fd(int fd)
 {
 	if (close(fd) < 0)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't close fd %i\n", fd);
-		exit(100);
+		write(STDERR_FILENO, "Error: Can't close file\n", 24);
+		exit(98);
 	}
 }
 
@@ -259,17 +259,17 @@ void close_fd(int fd)
  *
  * Return: void
  */
-void check_error(int file_from, int file_to, char *filename)
+void check_error(int file_from, int file_to, __attribute__((unused)) char *filename)
 {
 	if (file_from < 0)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename);
+		write(STDERR_FILENO, "Error: Can't read input file\n", 29);
 		exit(98);
 	}
 
 	if (file_to < 0)
 	{
-		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
-		exit(99);
+		write(STDERR_FILENO, "Error: Can't write to elf file\n", 31);
+		exit(98);
 	}
 }
