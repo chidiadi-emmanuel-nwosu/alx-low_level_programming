@@ -183,9 +183,9 @@ void print_data(Elf64_Ehdr *elf)
 	if (elf->e_ident[EI_DATA] == ELFDATANONE)
 		printf("Unknown data format\n");
 	else if (elf->e_ident[EI_DATA] == ELFDATA2LSB)
-		printf("2's complement, little-endian\n");
+		printf("2's complement, little endian\n");
 	if (elf->e_ident[EI_DATA] == ELFDATA2MSB)
-		printf("2's complement, big-endian");
+		printf("2's complement, big endian");
 }
 
 
@@ -251,7 +251,7 @@ void print_osabi(Elf64_Ehdr *elf)
 			printf("UNIX - Stand-alone\n");
 			break;
 		default:
-			printf("<unknown: %i", elf->e_ident[EI_OSABI]);
+			printf("<unknown: %x", elf->e_ident[EI_OSABI]);
 	}
 }
 
@@ -284,7 +284,7 @@ void print_type(Elf64_Ehdr *elf)
 	switch (elf->e_type)
 	{
 		case ET_NONE:
-			printf("NONE (unknown type)\n");
+			printf("NONE (No file type)\n");
 			break;
 		case ET_REL:
 			printf("REL (Relocatable file)\n");
@@ -309,7 +309,7 @@ void print_type(Elf64_Ehdr *elf)
  *
  * Return: void
  */
-void print_entry(__attribute__((unused)) Elf64_Ehdr *elf)
+void print_entry(Elf64_Ehdr *elf)
 {
 	printf("  Entry point address:               ");
 
