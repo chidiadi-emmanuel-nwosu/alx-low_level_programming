@@ -4,7 +4,6 @@
  */
 
 #include "main.h"
-#include <elf.h>
 
 /**
  * main - program that displays the information contained
@@ -16,7 +15,7 @@
  */
 int main(int argc, char *argv[])
 {
-	int fd, re, wr;
+	int fd, re;
 	Elf64_Ehdr *elf;
 
 	/*Check if number of inputs are valid*/
@@ -83,9 +82,10 @@ void check_argc(int argc)
  *
  * Return: void.
  */
-void check_elf(char *e_ident)
+void check_elf(unsigned char *e_ident)
 {
-	if (e_ident[])
+	if (!(e_ident[0] == 0x7f && e_ident[1] == 'E'
+				&& e_ident[2] == 'L' && e_ident[3] == 'F'))
 	{
 		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
 		exit(98);
@@ -101,7 +101,7 @@ void check_elf(char *e_ident)
  *
  * Return: void.
  */
-void (*get_print_info(char *info))(Elf64_Ehdr)
+void (*get_print_info(char *info))(Elf64_Ehdr *elf)
 {
 	int i = 0;
 
@@ -120,6 +120,113 @@ void (*get_print_info(char *info))(Elf64_Ehdr)
 	for (; get[i].info; i++)
 		if (*info == *(get[i].info))
 			return (get[i].f);
+
+	return (0);
+
+}
+
+
+
+
+/**
+ * print_magic - prints magic part of elf header
+ * @elf: elf_header file
+ *
+ * Return: void
+ */
+void print_magic(__attribute__((unused)) Elf64_Ehdr *elf)
+{
+
+}
+
+
+/**
+ * print_class - prints class part of elf header
+ * @elf: elf_header file
+ *
+ * Return: void
+ */
+void print_class(__attribute__((unused)) Elf64_Ehdr *elf)
+{
+
+}
+
+
+
+/**
+ * print_data - prints data part of elf header
+ * @elf: elf_header file
+ *
+ * Return: void
+ */
+void print_data(__attribute__((unused)) Elf64_Ehdr *elf)
+{
+
+}
+
+
+
+/**
+ * print_version - prints version part of elf header
+ * @elf: elf_header file
+ *
+ * Return: void
+ */
+void print_version(__attribute__((unused)) Elf64_Ehdr *elf)
+{
+
+}
+
+
+
+/**
+ * print_osabi - prints osabi part of elf header
+ * @elf: elf_header file
+ *
+ * Return: void
+ */
+void print_osabi(__attribute__((unused)) Elf64_Ehdr *elf)
+{
+
+}
+
+
+
+/**
+ * print_abiver - prints abi version part of elf header
+ * @elf: elf_header file
+ *
+ * Return: void
+ */
+void print_abiver(__attribute__((unused)) Elf64_Ehdr *elf)
+{
+
+}
+
+
+
+
+/**
+ * print_type - prints type part of elf header
+ * @elf: elf_header file
+ *
+ * Return: void
+ */
+void print_type(__attribute__((unused)) Elf64_Ehdr *elf)
+{
+
+}
+
+
+
+/**
+ * print_entry - prints address part of elf header
+ * @elf: elf_header file
+ *
+ * Return: void
+ */
+void print_entry(__attribute__((unused)) Elf64_Ehdr *elf)
+{
 
 }
 
