@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
 	check_elf(elf->e_ident);
 
 	/*Print information*/
+	printf("ELF Header:\n");
 	get_print_info("magic")(elf);
 	get_print_info("class")(elf);
 	get_print_info("data")(elf);
@@ -84,10 +85,10 @@ void check_argc(int argc)
  */
 void check_elf(unsigned char *e_ident)
 {
-	if (!(e_ident[0] == 0x7f && e_ident[1] == 'E'
-				&& e_ident[2] == 'L' && e_ident[3] == 'F'))
+	if (!(e_ident[EI_MAG0] == 0x7f && e_ident[EI_MAG1] == 'E'
+				&& e_ident[EI_MAG2] == 'L' && e_ident[EI_MAG3] == 'F'))
 	{
-		write(STDERR_FILENO, "Usage: elf_header elf_filename\n", 31);
+		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
 		exit(98);
 	}
 }
@@ -122,7 +123,6 @@ void (*get_print_info(char *info))(Elf64_Ehdr *elf)
 			return (get[i].f);
 
 	return (0);
-
 }
 
 
@@ -134,9 +134,19 @@ void (*get_print_info(char *info))(Elf64_Ehdr *elf)
  *
  * Return: void
  */
-void print_magic(__attribute__((unused)) Elf64_Ehdr *elf)
+void print_magic(Elf64_Ehdr *elf)
 {
+	int i = 0;
 
+	printf("  Magic:   ");
+	for (; i < 16; i++)
+	{
+		printf("%02x", elf->e_ident[i]);
+		if (i == 15)
+			printf("\n");
+		else
+			printf(" ");
+	}
 }
 
 
@@ -146,9 +156,16 @@ void print_magic(__attribute__((unused)) Elf64_Ehdr *elf)
  *
  * Return: void
  */
-void print_class(__attribute__((unused)) Elf64_Ehdr *elf)
+void print_class(Elf64_Ehdr *elf)
 {
+	printf("  Class:                             ");
 
+	if (elf->e_ident[EI_CLASS] == ELFCLASSNONE)
+		printf("invalid\n");
+	else if (elf->e_ident[EI_CLASS] == ELFCLASS32)
+		printf("ELF32\n");
+	else if (elf->e_ident[EI_CLASS] == ELFCLASS64)
+		printf("ELF64\n");
 }
 
 
@@ -159,9 +176,16 @@ void print_class(__attribute__((unused)) Elf64_Ehdr *elf)
  *
  * Return: void
  */
-void print_data(__attribute__((unused)) Elf64_Ehdr *elf)
+void print_data(Elf64_Ehdr *elf)
 {
+	printf("  Data:                              ");
 
+	if (elf->e_ident[EI_DATA] == ELFDATANONE)
+		printf("Unknown data format\n");
+	else if (elf->e_ident[EI_DATA] == ELFDATA2LSB)
+		printf("2's complement, little-endian\n");
+	if (elf->e_ident[EI_DATA] == ELFDATA2MSB)
+		printf("2's complement, big-endian");
 }
 
 
@@ -172,9 +196,14 @@ void print_data(__attribute__((unused)) Elf64_Ehdr *elf)
  *
  * Return: void
  */
-void print_version(__attribute__((unused)) Elf64_Ehdr *elf)
+void print_version(Elf64_Ehdr *elf)
 {
+	printf("  Version:                           ");
 
+	if (elf->e_ident[EI_VERSION] == EV_NONE)
+		printf("0 (invalid)\n");
+	else if (elf->e_ident[EI_VERSION] == EV_CURRENT)
+		printf("1 (current)\n");
 }
 
 
@@ -185,9 +214,45 @@ void print_version(__attribute__((unused)) Elf64_Ehdr *elf)
  *
  * Return: void
  */
-void print_osabi(__attribute__((unused)) Elf64_Ehdr *elf)
+void print_osabi(Elf64_Ehdr *elf)
 {
+	printf("  OS/ABI:                            ");
 
+	switch (elf->e_ident[EI_OSABI])
+	{
+		case ELFOSABI_SYSV:
+			printf("UNIX - System V\n");
+			break;
+		case ELFOSABI_HPUX:
+			printf("UNIX - HP-UX\n");
+			break;
+		case ELFOSABI_NETBSD:
+			printf("UNIX - NetBSD\n");
+			break;
+		case ELFOSABI_LINUX:
+			printf("UNIX - Linux\n");
+			break;
+		case ELFOSABI_SOLARIS:
+			printf("UNIX - Solaris\n");
+			break;
+		case ELFOSABI_IRIX:
+			printf("UNIX - IRIX\n");
+			break;
+		case ELFOSABI_FREEBSD:
+			printf("UNIX - FreeBSD\n");
+			break;
+		case ELFOSABI_TRU64:
+			printf("UNIX - TRU64\n");
+			break;
+		case ELFOSABI_ARM:
+			printf("UNIX - ARM architecture\n");
+			break;
+		case ELFOSABI_STANDALONE:
+			printf("UNIX - Stand-alone\n");
+			break;
+		default:
+			printf("<unknown: %i", elf->e_ident[EI_OSABI]);
+	}
 }
 
 
@@ -198,11 +263,11 @@ void print_osabi(__attribute__((unused)) Elf64_Ehdr *elf)
  *
  * Return: void
  */
-void print_abiver(__attribute__((unused)) Elf64_Ehdr *elf)
+void print_abiver(Elf64_Ehdr *elf)
 {
-
+	printf("  ABI Version:                       ");
+	printf("%i\n", elf->e_ident[EI_ABIVERSION]);
 }
-
 
 
 
@@ -212,9 +277,28 @@ void print_abiver(__attribute__((unused)) Elf64_Ehdr *elf)
  *
  * Return: void
  */
-void print_type(__attribute__((unused)) Elf64_Ehdr *elf)
+void print_type(Elf64_Ehdr *elf)
 {
+	printf("  Type:                              ");
 
+	switch (elf->e_type)
+	{
+		case ET_NONE:
+			printf("NONE (unknown type)\n");
+			break;
+		case ET_REL:
+			printf("REL (Relocatable file)\n");
+			break;
+		case ET_EXEC:
+			printf("EXEC (Executable file)\n");
+			break;
+		case ET_DYN:
+			printf("DYN (Shared object file)\n");
+			break;
+		case ET_CORE:
+			printf("CORE (Relocatable file)\n");
+			break;
+	}
 }
 
 
@@ -227,7 +311,12 @@ void print_type(__attribute__((unused)) Elf64_Ehdr *elf)
  */
 void print_entry(__attribute__((unused)) Elf64_Ehdr *elf)
 {
+	printf("  Entry point address:               ");
 
+	if (elf->e_ident[EI_CLASS] == ELFCLASS32)
+		printf("%#x\n", (unsigned int)elf->e_entry);
+	else if (elf->e_ident[EI_CLASS] == ELFCLASS64)
+		printf("%#lx\n", elf->e_entry);
 }
 
 
@@ -243,7 +332,7 @@ void close_fd(int fd)
 {
 	if (close(fd) < 0)
 	{
-		write(STDERR_FILENO, "Error: Can't close file\n", 24);
+		dprintf(STDERR_FILENO, "Error: Can't close %i\n", fd);
 		exit(98);
 	}
 }
@@ -259,17 +348,17 @@ void close_fd(int fd)
  *
  * Return: void
  */
-void check_error(int file_from, int file_to, __attribute__((unused)) char *filename)
+void check_error(int file_from, int file_to, char *filename)
 {
 	if (file_from < 0)
 	{
-		write(STDERR_FILENO, "Error: Can't read input file\n", 29);
+		dprintf(STDERR_FILENO, "Error: Can't read %s\n", filename);
 		exit(98);
 	}
 
 	if (file_to < 0)
 	{
-		write(STDERR_FILENO, "Error: Can't write to elf file\n", 31);
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename);
 		exit(98);
 	}
 }
