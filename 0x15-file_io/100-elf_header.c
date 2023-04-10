@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
 	if (elf == NULL)
 	{
 		dprintf(STDERR_FILENO, "Error: memory alloation failed\n");
-		close(fd);
+		close_fd(fd);
 		exit(98);
 	}
 	/*Read file into elf and check for errors*/
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
  */
 void check_argc(int argc)
 {
-	if (argc != 2)
+	if (argc < 0)
 	{
 		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
 		exit(98);
