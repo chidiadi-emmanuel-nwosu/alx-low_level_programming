@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
  */
 void check_argc(int argc)
 {
-	if (argc < 0)
+	if (argc != 2)
 	{
 		dprintf(STDERR_FILENO, "Usage: elf_header elf_filename\n");
 		exit(98);
@@ -246,10 +246,10 @@ void print_osabi(Elf64_Ehdr *elf)
 			printf("UNIX - TRU64\n");
 			break;
 		case ELFOSABI_ARM:
-			printf("UNIX - ARM architecture\n");
+			printf("ARM\n");
 			break;
 		case ELFOSABI_STANDALONE:
-			printf("UNIX - Stand-alone\n");
+			printf("Standalone App\n");
 			break;
 		default:
 			printf("<unknown: %x", elf->e_ident[EI_OSABI]);
