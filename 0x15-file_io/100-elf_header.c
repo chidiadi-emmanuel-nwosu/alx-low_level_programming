@@ -314,10 +314,7 @@ void print_entry(Elf64_Ehdr *elf)
 	unsigned long tmp = elf->e_entry;
 
 	if (elf->e_ident[EI_DATA] == ELFDATA2MSB)
-	{
-		tmp = ((tmp << 8) & 0xFF00FF00) | ((tmp >> 8) & 0xFF00FF);
-		tmp = (tmp << 16) | (tmp >> 16);
-	}
+		tmp = SWAP_ENDIAN(tmp);
 
 	printf("  Entry point address:               ");
 
