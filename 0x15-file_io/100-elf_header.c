@@ -311,12 +311,18 @@ void print_type(Elf64_Ehdr *elf)
  */
 void print_entry(Elf64_Ehdr *elf)
 {
+	unsigned long tmp = elf->e_entry;
+
+	if (elf->e_ident[EI_DATA] == ELFDATA2MSB)
+		tmp = ((((tmp) >> 24) & 0x000000FF) | (((tmp) >>  8) & 0x0000FF00) |
+				(((tmp) <<  8) & 0x00FF0000) | (((tmp) << 24) & 0xFF000000));
+
 	printf("  Entry point address:               ");
 
 	if (elf->e_ident[EI_CLASS] == ELFCLASS32)
-		printf("%#x\n", (unsigned int)elf->e_entry);
+		printf("%#x\n", (unsigned int)tmp);
 	else if (elf->e_ident[EI_CLASS] == ELFCLASS64)
-		printf("%#lx\n", elf->e_entry);
+		printf("%#lx\n", tmp);
 }
 
 
