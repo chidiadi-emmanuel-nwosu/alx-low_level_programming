@@ -285,7 +285,7 @@ void print_type(Elf64_Ehdr *elf)
 	switch (elf->e_type)
 	{
 		case ET_NONE:
-			printf("NONE (No file type)\n");
+			printf("NONE (Unknown type)\n");
 			break;
 		case ET_REL:
 			printf("REL (Relocatable file)\n");
@@ -297,7 +297,7 @@ void print_type(Elf64_Ehdr *elf)
 			printf("DYN (Shared object file)\n");
 			break;
 		case ET_CORE:
-			printf("CORE (Relocatable file)\n");
+			printf("CORE (Core file)\n");
 			break;
 	}
 }
@@ -315,7 +315,7 @@ void print_entry(Elf64_Ehdr *elf)
 	unsigned long tmp = elf->e_entry;
 
 	if (elf->e_ident[EI_DATA] == ELFDATA2MSB)
-		tmp = SWAP_ENDIAN(tmp);
+		tmp = SWAP_ENDIAN64(tmp);
 
 	printf("  Entry point address:               ");
 

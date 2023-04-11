@@ -7,11 +7,14 @@
 #include <stdlib.h>
 #include <elf.h>
 
-#define SWAP_ENDIAN(val) \
+#define SWAP_ENDIAN64(val) \
  ( (((val) >> 56) & 0x00000000000000FF) | (((val) >> 40) & 0x000000000000FF00) | \
    (((val) >> 24) & 0x0000000000FF0000) | (((val) >>  8) & 0x00000000FF000000) | \
    (((val) <<  8) & 0x000000FF00000000) | (((val) << 24) & 0x0000FF0000000000) | \
    (((val) << 40) & 0x00FF000000000000) | (((val) << 56) & 0xFF00000000000000) )
+
+#define SWAP_ENDIAN16(val) ((VAL) >> 8)
+
 
 /**
  * struct info - Struct info
