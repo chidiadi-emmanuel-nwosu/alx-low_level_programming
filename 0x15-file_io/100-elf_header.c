@@ -252,7 +252,7 @@ void print_osabi(Elf64_Ehdr *elf)
 			printf("Standalone App\n");
 			break;
 		default:
-			printf("<unknown: %x", elf->e_ident[EI_OSABI]);
+			printf("<unknown: %x>", elf->e_ident[EI_OSABI]);
 	}
 }
 
