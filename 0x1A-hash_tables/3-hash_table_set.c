@@ -65,5 +65,5 @@ hash_node_t *new_node(const char *key, const char *value)
 	new->value = strdup(value);
 	new->next = NULL;
 
-	return new;
+	return (new);
 }

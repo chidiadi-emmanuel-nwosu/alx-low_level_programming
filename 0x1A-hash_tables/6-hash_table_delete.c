@@ -6,8 +6,8 @@
 #include "hash_tables.h"
 
 /**
- * hash_table_print - prints a hash table.
- * ht: the hash table
+ * hash_table_delete - prints a hash table.
+ * @ht: the hash table
  */
 void hash_table_delete(hash_table_t *ht)
 {
