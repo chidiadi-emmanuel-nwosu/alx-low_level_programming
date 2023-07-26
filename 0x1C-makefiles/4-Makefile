@@ -1,6 +1,6 @@
 # variables
 CC = gcc
-SRC := main.c school.c
+SRC = main.c school.c
 OBJ = $(SRC:.c=.o)
 NAME = school
 RM = rm -f
@@ -8,7 +8,7 @@ CFLAGS = -Wall -Werror -Wextra -pedantic
 
 # target and depedencies
 all: $(OBJ)
-	$(CC) $(OBJ) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 
 clean:
 	$(RM) *~ $(NAME)
