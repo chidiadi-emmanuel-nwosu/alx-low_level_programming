@@ -1,0 +1,9 @@
+# variables
+CC = gcc
+SRC = $(wildcard *.c)
+OBJ = $(SRC:.c=.o)
+NAME = school
+
+# target and depedencies
+all: $(OBJ)
+	$(CC) $(OBJ) -o $(NAME)
